@@ -1,85 +1,56 @@
 <template>
 <div class="container-fluid">
-  <!--<div class="bg-primary text-white m-2 p-3">
-    <h3 v-bind:data-size="size" class="display-4">Product: {{name}} </h3>
-  </div>-->
-  <!--
-  <h2 class="bg-primary text-white text-center p-3">{{message}}</h2>
-  <input class= "form-control bg-light" placeholder="Type here..."
-    v-on:keydown.ctrl="handleKey"
-  />
-  
-  <table class="table table-sm table-bordered table-striped text-left">
-    <tr> <th>Name</th><th>Price</th><th>Actions</th> </tr>
-    <tbody>
-      <tr v-for="p in pageItems" v-bind:key="p.name" v-bind:odd="i % 2 == 0" >
-        
-        <td>{{p.name}}</td>
-        <td>{{p.price}}</td>
-        <td>
-           <button class="btn btn-sm bg-primary text-white"
-            v-on="buttonEvents"
-            v-bind:data-name="p.name" >
-            Select 
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table> 
-  <button v-for="i in pageCount"  v-bind:key="i" v-on:click="selectPage(i)" 
-    class="btn btn-secondary m-1"
-    v-bind:class="{'bg-primary': currentPage == i}">
-    {{i}}
-  </button>-->
-  <div class="bg-info m-2 p-2 text-white">
-   <div> Value: {{dataValue}} </div>
-   <div> Other value {{otherValue || "(Empty)" }}  </div>
-   <div> Name: {{name}} </div>
-
-    </div>
-  
-
-  <div class="bg-primary m-2 p-2 text-white">
-  <div class="form-check">
-    <label class="form-check-label">
-      <input class="form-check-input" type="checkbox"
-            v-model="dataValue"
-      />
-      Data value
-    </label>
-  </div>
+  <div class="m-2 p-2 text-white" v-bind:class="dataValue">
+    <div>Value: {{dataValue}}</div>
   </div>
 
-<div class="bg-primary m-2 p-2">
-  <input type="text" class="form-control" v-model="otherValue"/>
-</div>
+<div class="form-check m-2">
+  <label class="form-check-label">
+    <input type="checkbox" class="form-check-input"
+      v-model="dataValue" v-bind:true-value="darkColor"
+      v-bind:false-value="ligthColor"/>
+      Dark Color 
+  </label>
 
-<div class="bg-primary m-2 p-2">
-<div class="form-group">
-  <label>Selected Names</label>
-  <select class="form-control" v-model="name" >
-    <option value="all">Everyone</option>
-    <option v-for="n in otherNames" v-bind:key="n" v-bind:value="n" >Just {{n}} </option>
+<div class="form-group m-2 p-2 bg-secondary">
+  <label>Color</label>
+  <select v-model="dataValue" class="form-control" >
+    <option v-bind:value="darkColor" >Dark Color</option>
+    <option v-bind:value="ligthColor" >Light Color</option>
   </select>
+
 </div>
 </div>
 
-  <div class="text-center m-2">
-    <button class="btn btn-secondary" v-on:click= "reset">
-      Reset
-    </button>
-  </div>
+<div class="form-check-inline m-2">
+  <label class="form-check-label">
+    <input type="radio" class="form-check-input"
+      v-model="dataValue" v-bind:value="darkColor"
+    />
+    Dark Color
+  </label>
+</div>
+<div class="form-check-inline m-2">
+  <label class="form-check-label">
+    <input type="radio" class="form-check-input"
+      v-model="dataValue" v-bind:value="ligthColor"
+    />
+    Light Color
+  </label>
+</div>
+
 </div>
 </template>
 
 <script>
-
-
 export default {
   name: 'App',
   data: function () {
     return {
-      dataValue: false,
+      darkColor: "bg-primary",
+      ligthColor:"bg-info",
+      dataValue: "bg-info",
+      //dataValue: false,
       pageSize: 3,
       currentPage: 1,
       message: "Products",
